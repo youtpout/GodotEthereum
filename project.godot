@@ -33,12 +33,8 @@ _global_script_class_icons={
 [application]
 
 config/name="GodotEthereum"
-run/main_scene="res://main.tscn"
+run/main_scene="res://Menu.tscn"
 config/icon="res://icon.png"
-
-[autoload]
-
-Global="*res://autoloads/global.gd"
 
 [gui]
 

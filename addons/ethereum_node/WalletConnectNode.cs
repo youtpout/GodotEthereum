@@ -1,5 +1,11 @@
 using Godot;
+using Nethereum.WalletConnect;
 using System;
+using WalletConnectSharp.Sign.Models;
+using WalletConnectSharp.Sign;
+using WalletConnectSharp.Sign.Models.Engine;
+using WalletConnectSharp.Core;
+using System.Threading.Tasks;
 
 public class WalletConnectNode : Node
 {
@@ -11,6 +17,27 @@ public class WalletConnectNode : Node
     public override void _Ready()
     {
         
+    }
+
+    public static async Task<ConnectedData> GetConnectData()
+    {
+        var options = new SignClientOptions()
+        {
+            ProjectId = "002243e654eae5271202b831393246d3",
+            Metadata = new Metadata()
+            {
+                Description = "An example project to showcase WalletConnectSharpv2",
+                Icons = new[] { "https://walletconnect.com/meta/favicon.ico" },
+                Name = "WC Example",
+                Url = "https://walletconnect.com"
+            }
+        };
+
+        var client = await WalletConnectSignClient.Init(options);
+
+
+        var connectData = await client.Connect(NethereumWalletConnectService.GetDefaultConnectOptions());
+        return connectData;
     }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
