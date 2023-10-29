@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using WalletConnectSharp.Sign.Models.Engine;
 
 public class Menu : Node2D
@@ -11,14 +10,29 @@ public class Menu : Node2D
     // Called when the node enters the scene tree for the first time.
     public async override void _Ready()
     {
-        ConnectedData test = await WalletConnectNode.GetConnectData();
-        Node child = GetNode("QrImage");
-        GD.Print("child exist" + child is null);
+
+        object child = GetNode<TextureRect>("QrImage").Get("text");
+        GD.Print("child txt " + child);
+
+
     }
 
-    //  // Called every frame. 'delta' is the elapsed time since the previous frame.
-    //  public override void _Process(float delta)
-    //  {
-    //      
-    //  }
+    bool firstCall = true;
+
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(float delta)
+    {
+        if (firstCall)
+        {
+            firstCall = false;
+            GetData();
+        }
+    }
+
+    public async void GetData()
+    {
+        ConnectedData test = await WalletConnectNode.GetConnectData();
+
+        GD.Print("data uri " + test.Uri);
+    }
 }

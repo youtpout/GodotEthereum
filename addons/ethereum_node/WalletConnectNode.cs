@@ -16,7 +16,7 @@ public class WalletConnectNode : Node
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        
+
     }
 
     public static async Task<ConnectedData> GetConnectData()
@@ -33,16 +33,18 @@ public class WalletConnectNode : Node
             }
         };
 
+
+
         var client = await WalletConnectSignClient.Init(options);
 
-
+        GD.Print("client", client.Name);
         var connectData = await client.Connect(NethereumWalletConnectService.GetDefaultConnectOptions());
         return connectData;
     }
 
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
+    //  // Called every frame. 'delta' is the elapsed time since the previous frame.
+    //  public override void _Process(float delta)
+    //  {
+    //      
+    //  }
 }
